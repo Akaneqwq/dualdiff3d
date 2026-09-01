@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fefffe">
+  <meta name="description" content="DualDiff3D uses dual structure-appearance diffusion priors and a reliability-enhanced Render-Refine-Optimize loop for sparse-view 3D Gaussian Splatting.">
+  <meta name="keywords" content="DualDiff3D, DualDiff, 3D Gaussian Splatting, diffusion model, novel view synthesis, ECCV 2026">
+  <meta name="author" content="Qian Wang, Yu Wang, Weiqi Li, Xinhua Cheng, Xiandong Meng, Ronggang Wang, Jian Zhang">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DualDiff3D — ECCV 2026">
+  <meta property="og:description" content="Dual Structure-Appearance Diffusion Priors for Reliability-Enhanced 3D Gaussian Splatting.">
+  <meta property="og:image" content="assets/images/teaser.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>DualDiff3D — ECCV 2026</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (() => {
+      const saved = localStorage.getItem("dualdiff3d-theme");
+      const dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="wordmark" href="#top" aria-label="DualDiff3D home">
+        <span class="mark" aria-hidden="true"><i></i><i></i></span>
+        DualDiff3D
+      </a>
+      <div class="nav-links">
+        <a href="#demo">Videos</a>
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#citation">Citation</a>
+      </div>
+      <div class="nav-actions">
+        <a class="icon-button github-button" href="https://github.com/Akaneqwq/DualDiff3D" target="_blank" rel="noopener" aria-label="Open code on GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5a13.38 13.38 0 0 0-8 0C6 2 5 2 5 2a6.44 6.44 0 0 0 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65A6.7 6.7 0 0 0 9 18v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+        </a>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch color theme">
+          <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+          <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+        </button>
+        <button class="menu-button icon-button" id="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#demo">Videos</a>
+      <a href="#overview">Overview</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#citation">Citation</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero section" id="top">
+      <div class="hero-glow glow-one" aria-hidden="true"></div>
+      <div class="hero-glow glow-two" aria-hidden="true"></div>
+      <div class="container hero-content reveal">
+        <div class="venue"><span></span> ECCV 2026</div>
+        <h1><em>DualDiff3D</em>: Dual Structure-Appearance Diffusion Priors for Reliability-Enhanced 3D Gaussian Splatting</h1>
+        <p class="hero-lead">Decoupling structure and appearance for sharper, more reliable sparse-view 3D reconstruction.</p>
+
+        <div class="authors" aria-label="Paper authors">
+          <a href="https://akaneqwq.github.io/" target="_blank" rel="noopener">Qian Wang<sup>*</sup></a>
+          <a href="https://github.com/ArisWayne" target="_blank" rel="noopener">Yu Wang<sup>*</sup></a>
+          <a href="https://github.com/lwq20020127/" target="_blank" rel="noopener">Weiqi Li</a>
+          <a href="https://cxh0519.github.io/" target="_blank" rel="noopener">Xinhua Cheng</a>
+          <span>Xiandong Meng</span>
+          <span>Ronggang Wang</span>
+          <a href="https://jianzhang.tech/" target="_blank" rel="noopener">Jian Zhang<sup>†</sup></a>
+        </div>
+        <p class="author-note"><sup>*</sup> Equal contribution &nbsp;&nbsp; <sup>†</sup> Corresponding author</p>
+        <div class="affiliations">
+          <span>Peking University</span><i></i>
+          <span>Pengcheng Laboratory</span><i></i>
+          <span>Guangdong Provincial Key Laboratory of UHD Immersive Media Technology</span>
+        </div>
+
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/Akaneqwq/DualDiff3D" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5a13.38 13.38 0 0 0-8 0C6 2 5 2 5 2a6.44 6.44 0 0 0 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65A6.7 6.7 0 0 0 9 18v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+            Code
+          </a>
+          <!-- Replace # with the arXiv URL when it is available. -->
+          <a class="button secondary" id="arxiv-link" href="#" aria-disabled="true" title="arXiv link coming soon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l4 4v16H6V2Z"></path><path d="M14 2v5h5M9 13h6M9 17h6"></path></svg>
+            arXiv
+          </a>
+          <a class="button secondary" href="#demo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"></path></svg>
+            View videos
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="demo">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Video comparison</span>
+          <h2>Explore the reconstruction results.</h2>
+          <p>Compare synchronized novel-view renderings from 3DGS, DIFIX3D, and DualDiff3D.</p>
+        </div>
+
+        <div class="video-demo reveal">
+          <div class="demo-toolbar">
+            <div class="scene-tabs" role="tablist" aria-label="Choose a scene">
+              <button type="button" role="tab" aria-selected="false" data-scene="leaves">Leaves</button>
+              <button class="active" type="button" role="tab" aria-selected="true" data-scene="fern">Fern</button>
+              <button type="button" role="tab" aria-selected="false" data-scene="trex">T-Rex</button>
+              <button type="button" role="tab" aria-selected="false" data-scene="horns">Horns</button>
+            </div>
+            <button class="play-control" id="play-control" type="button" aria-label="Pause comparison videos">
+              <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"></path></svg>
+              <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"></path></svg>
+              <span>Pause</span>
+            </button>
+          </div>
+          <div class="video-grid">
+            <figure>
+              <div class="video-shell"><video muted loop playsinline preload="metadata" data-method="3dgs"><source src="assets/videos/fern_3dgs.mp4" type="video/mp4"></video></div>
+              <figcaption><span>Baseline</span><b>3DGS</b></figcaption>
+            </figure>
+            <figure>
+              <div class="video-shell"><video muted loop playsinline preload="metadata" data-method="Difix"><source src="assets/videos/fern_Difix.mp4" type="video/mp4"></video></div>
+              <figcaption><span>Single prior</span><b>DIFIX3D</b></figcaption>
+            </figure>
+            <figure class="ours-video">
+              <div class="video-shell"><video muted loop playsinline preload="metadata" data-method="DualDiff"><source src="assets/videos/fern_DualDiff.mp4" type="video/mp4"></video><span class="ours-badge">Ours</span></div>
+              <figcaption><span>Dual prior + reliable RRO</span><b>DualDiff3D</b></figcaption>
+            </figure>
+          </div>
+          <p class="demo-note">All three videos are synchronized. Click any video or use the control to pause and inspect details.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Overview</span>
+          <h2>One prior for structure. One prior for appearance.</h2>
+        </div>
+        <div class="abstract reveal">
+          <p class="dropcap">Sparse input views leave 3D Gaussian Splatting with incomplete geometry and conspicuous artifacts. Existing diffusion-based refiners mix rendered and reference views in one network, despite their fundamentally different roles: a rendered view defines <strong>structure</strong>, while reference views provide <strong>appearance</strong>.</p>
+          <p>We introduce <strong>DualDiff</strong>, a two-branch refinement pipeline connected by Structure-Appearance Attention. A dedicated structure branch preserves the viewpoint, layout, and geometric correspondence of low-quality novel views, while an appearance branch supplies textures, colors, and details from reference images. Structural queries attend to both structural and appearance features, introducing reference guidance without sacrificing viewpoint consistency.</p>
+          <p>Building on this refinement model, <strong>DualDiff3D</strong> uses a reliability-enhanced Render-Refine-Optimize loop to turn refined novel views into stronger 3D supervision. Progressive sampling and filtering selects useful nearby viewpoints, confidence-driven weighting evaluates reliability at the pixel level, and validation with rollback prevents unstable updates from degrading the reconstruction.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted-section" id="method">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Method</span>
+          <h2>Separate first. Fuse with purpose.</h2>
+          <p>DualDiff resolves the conflict between viewpoint-dependent geometry and view-consistent appearance.</p>
+        </div>
+
+        <figure class="paper-figure method-figure reveal">
+          <div class="media-frame figure-pad">
+            <img src="assets/images/difix.webp" width="1309" height="812" loading="lazy" alt="Motivation comparing single-branch DIFIX with the dual-branch DualDiff design">
+          </div>
+          <figcaption><strong>Motivation.</strong> A single branch blurs as the reference viewpoint moves farther away. Decoupling structure and appearance avoids this conflict.</figcaption>
+        </figure>
+
+        <figure class="paper-figure method-figure reveal">
+          <div class="media-frame figure-pad">
+            <img src="assets/images/pipeline.webp" width="1996" height="812" loading="lazy" alt="DualDiff pipeline with structure and appearance diffusion branches connected by Structure-Appearance Attention">
+          </div>
+          <figcaption><strong>DualDiff.</strong> The structure branch takes the rendered novel view to preserve viewpoint and geometry, while the appearance branch extracts texture and detail from reference views. Structure-Appearance Attention uses structural hidden states as queries and combines structural and appearance features as keys and values.</figcaption>
+        </figure>
+
+        <figure class="paper-figure method-figure reveal">
+          <div class="media-frame figure-pad">
+            <img src="assets/images/loop.webp" width="1684" height="686" loading="lazy" alt="DualDiff3D reliability-enhanced Render-Refine-Optimize loop">
+          </div>
+          <figcaption><strong>DualDiff3D.</strong> The Render-Refine-Optimize loop progressively augments 3DGS with refined novel views. Progressive Sampling and Filtering selects reliable viewpoints, Confidence-Driven Weighting evaluates pixel-level reliability, and validation with rollback prevents unstable updates.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Results</span>
+          <h2>Quantitative and qualitative comparisons.</h2>
+        </div>
+
+        <figure class="paper-figure reveal">
+          <div class="media-frame figure-pad">
+            <img src="assets/images/teaser.webp" width="2621" height="1248" loading="lazy" alt="Visual comparison of novel-view refinement by DIFIX and DualDiff across multiple scenes">
+          </div>
+          <figcaption><span>DualDiff refinement</span> DualDiff preserves the geometry of rendered novel views while transferring fine appearance details from reference views.</figcaption>
+        </figure>
+
+        <div class="metrics reveal">
+          <article><span>DL3DV · 3 views</span><strong>+1.20 <small>dB</small></strong><p>PSNR over DIFIX3D</p></article>
+          <article><span>LLFF · 3 views</span><strong>+1.13 <small>dB</small></strong><p>PSNR over DIFIX3D</p></article>
+          <article><span>Refinement speed</span><strong>600 <small>ms</small></strong><p>per image on RTX 4090</p></article>
+          <article><span>Across all settings</span><strong>21 / 21</strong><p>best DL3DV & LLFF core metrics</p></article>
+        </div>
+
+        <figure class="paper-figure reveal">
+          <div class="media-frame figure-pad">
+            <img src="assets/images/recon.webp" width="2057" height="935" loading="lazy" alt="Qualitative reconstruction comparison on DL3DV and LLFF datasets">
+          </div>
+          <figcaption><span>DualDiff3D reconstruction</span> DualDiff3D improves photorealism and geometric coherence across both in-domain DL3DV and out-of-domain LLFF scenes.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section citation-section" id="citation">
+      <div class="container citation-grid">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Citation</span>
+          <h2>Build on DualDiff3D.</h2>
+          <p>If this work is useful for your research, please cite our ECCV 2026 paper.</p>
+        </div>
+        <div class="code-card reveal">
+          <div class="code-toolbar">
+            <span>BibTeX</span>
+            <button id="copy-bibtex" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <pre><code id="bibtex">@inproceedings{wang2026dualdiff3d,
+  title     = {DualDiff3D: Dual Structure-Appearance Diffusion
+               Priors for Reliability-Enhanced 3D Gaussian Splatting},
+  author    = {Qian Wang and Yu Wang and Weiqi Li and Xinhua Cheng
+               and Xiandong Meng and Ronggang Wang and Jian Zhang},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026},
+  month     = {jun}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="wordmark" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i></span>DualDiff3D</a>
+      <p>Dual Structure-Appearance Diffusion Priors for Reliability-Enhanced 3D Gaussian Splatting.</p>
+      <p class="copyright">© 2026 Qian Wang</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
