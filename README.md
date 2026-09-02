@@ -7,7 +7,7 @@
 Peking University, Pengcheng Laboratory, Guangdong Provincial Key Laboratory of UHD Immersive Media Technology
 
 [![Home Page](https://img.shields.io/badge/Project-Website-blue.svg)](https://Akaneqwq.github.io/dualdiff3d)
-[![arXiv](https://img.shields.io/badge/arXiv-coming_soon-b31b1b.svg)](https://arxiv.org/)
+[![arXiv](https://img.shields.io/badge/arXiv-2609.01516-b31b1b.svg)](https://arxiv.org/abs/2609.01516)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green.svg)](LICENSE)
 
 This repository is the official implementation of **DualDiff3D**, which decouples structure and appearance through dual diffusion priors with a reliability-enhanced Render-Refine-Optimize loop for sparse-view 3D Gaussian Splatting.
