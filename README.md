@@ -2,9 +2,16 @@
 
 <h3>[ECCV 2026] DualDiff3D: Dual Structure-Appearance Diffusion Priors for Reliability-Enhanced 3D Gaussian Splatting</h3>
 
-[Qian Wang](https://akaneqwq.github.io/)<sup>*</sup>, [Yu Wang](https://github.com/ArisWayne)<sup>*</sup>, [Weiqi Li](https://github.com/lwq20020127/), [Xinhua Cheng](https://cxh0519.github.io/), Xiandong Meng, Ronggang Wang, [Jian Zhang](https://jianzhang.tech/)
+<p>
+<a href="https://akaneqwq.github.io/">Qian Wang</a><sup>&ast;</sup>,
+<a href="https://github.com/ArisWayne">Yu Wang</a><sup>&ast;</sup>,
+<a href="https://github.com/lwq20020127/">Weiqi Li</a>,
+<a href="https://cxh0519.github.io/">Xinhua Cheng</a>,
+Xiandong Meng, Ronggang Wang,
+<a href="https://jianzhang.tech/">Jian Zhang</a>
+</p>
 
-<sup>*</sup> Equal contribution.
+<p><sup>&ast;</sup> Equal contribution.</p>
 
 Peking University, Pengcheng Laboratory, Guangdong Provincial Key Laboratory of UHD Immersive Media Technology
 
