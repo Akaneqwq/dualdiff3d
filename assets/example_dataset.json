@@ -1,0 +1,10 @@
+{
+  "train": {},
+  "test": {
+    "example": {
+      "image": "example_input.png",
+      "ref_image": "example_ref.png",
+      "prompt": "remove degradation"
+    }
+  }
+}

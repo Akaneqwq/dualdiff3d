@@ -1,0 +1,30 @@
+name: dualdiff3d
+
+channels:
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu130
+      - torch==2.9.1+cu130
+      - torchvision==0.24.1+cu130
+      - diffusers==0.40.0
+      - einops==0.8.2
+      - huggingface-hub
+      - imageio[ffmpeg]==2.37.4
+      - numpy==2.2.6
+      - peft==0.20.0
+      - pillow==12.3.0
+      - tqdm==4.70.0
+      - transformers==5.16.1
+      - accelerate==1.14.0
+      - lpips==0.1.4
+      - matplotlib==3.10.9
+      - ninja==1.13.0
+      - opencv-python==5.0.0.93
+      - plyfile==1.1.5
+      - scipy==1.15.3
+      - wandb
+      - xformers==0.0.33.post2

@@ -1,0 +1,81 @@
+# Python caches and test/tool state
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Build products and local package metadata
+**/build/
+**/dist/
+**/*.egg-info/
+*.o
+*.so
+*.a
+ninja_log
+ninja_deps
+
+# Local environments and editor/OS files
+.venv/
+venv/
+env/
+.conda/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Experiment outputs, checkpoints, logs and visualizations
+output/
+outputs/
+runs/
+wandb/
+results/
+**/output/
+**/outputs/
+**/checkpoints/
+**/logs/
+**/novel/
+**/results/
+**/point_cloud/
+**/chkpnt*.pth
+**/cfg_args
+**/cameras.json
+**/input.ply
+**/*.log
+**/*.metrics
+
+# Downloaded pretrained models and large model artifacts
+pretrained/
+**/pretrained/
+dualdiff/outputs/
+*.ckpt
+*.pth
+*.pkl
+*.safetensors
+*.safetensors.*
+*.pt
+*.onnx
+
+# Dataset files and generated COLMAP/point-cloud artifacts
+data/
+**/data/
+**/database.db
+**/images.bin
+**/points3D.bin
+**/points3D.ply
+**/points3D_random.ply
+**/fused.ply
+**/poses_bounds.npy
+**/*.ply
+**/*.bin
+**/*.db
+
+# Temporary worktrees
+.worktrees/
+worktrees/
