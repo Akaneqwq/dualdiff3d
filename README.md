@@ -94,8 +94,6 @@ python -m pip install --no-build-isolation -e submodules/fused-ssim
 python -c "import diff_gaussian_rasterization, simple_knn, fused_ssim; print('3DGS extensions OK')"
 ```
 
-No `git submodule update` is required.
-
 ### Data
 
 We use the [DropGaussian](https://github.com/DCVL-3D/DropGaussian_release) sparse-view layout. Download its [preprocessed point clouds](https://drive.google.com/drive/folders/1P3I9m_HU0jF50qwxIIhXhegOVk-kihdI?usp=sharing), or pass `--rand_pcd` for random point cloud initialization.
@@ -124,7 +122,7 @@ N_VIEWS=6 bash scripts/train_mipnerf360_baselines.sh
 N_VIEWS=6 bash scripts/train_mipnerf360_dualdiff_from_3dgs.sh
 ```
 
-For custom scenes and script options, see [scripts/README.md](scripts/README.md). The direct entry points are `python train.py 3dgs ...` and `python train.py dualdiff-reliable ...`.
+For custom scenes and script options, see [scripts/README.md](scripts/README.md). 
 
 ### Render and evaluate
 
